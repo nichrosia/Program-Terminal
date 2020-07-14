@@ -102,15 +102,6 @@ program_info = generate_program_info()
 modules = generate_modules(program_info)
 terminal_params = generate_terminal_parameters(program_info, modules)
 
-# ending code
-
-# events = pygame.event.get()
-# for event in events:
-# if event.type == pygame.KEYDOWN:
-# if event.key == pygame.K_LCTRL and pygame.K_l or event.key == pygame.K_RCTRL and pygame.K_l:
-# clear()
-
-
 def main(program_info):
     program_strings = {}
 
