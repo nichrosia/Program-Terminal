@@ -8,6 +8,10 @@ from time import sleep
 def generate_program_info():
     query = [
         "main.py",
+        "README.md",
+        "LICENSE",
+        ".git",
+        "__pycache__",
     ]
 
     program_info = {}
