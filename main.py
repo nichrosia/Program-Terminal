@@ -8,9 +8,6 @@ from time import sleep
 def generate_program_info():
     query = [
         "main.py",
-        ".upm",
-        "main.egg-info",
-        "__pycache__",
     ]
 
     program_info = {}
