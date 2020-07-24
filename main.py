@@ -25,7 +25,7 @@ def generate_program_info():
         for folder in folder_names:
             for program in next(walk(f"./{folder}"))[2]:
                 if 'main.py' in program:
-                    _program_info[f"./{f'{folder}/{program}'}"] = folder.replace('-', ' ').replace('_', ' ')
+                    _program_info[f"./{folder}/{program}"] = folder.replace('-', ' ').replace('_', ' ')
 
     print(_program_info)
     return _program_info
