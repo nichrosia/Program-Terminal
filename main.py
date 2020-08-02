@@ -122,14 +122,15 @@ def main(_program_info):
         for item in _program_info:
             item_info = _program_info[item]
             item_info = item_info.replace('_', ' ')
-            program_strings[item] = f"""  Program Name: [{item}], 
-    run command: [{item_info}]
-"""
+            program_strings[item] = (
+                f"  Program Name: [{item}], \n"
+                f"    run command: [{item_info}]\n"
+            )
 
-    print(f"""Current modules: {len(_program_info)}
-
-Programs:""")
-    if program_strings == {}:
+    print(
+        f"Current modules: {len(_program_info)}\n\n"
+        "Programs:\n"
+    )
         print('None')
     else:
         for program_string in program_strings:
