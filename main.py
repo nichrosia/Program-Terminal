@@ -93,7 +93,7 @@ def terminal(breaksignal, command_info, program_strings):
                 if _input_ == command:
                     try:
                         program()
-                    except:
+                    except Exception:
                         print("\nAn error occurred within the program")
                 else:
                     unknown_counter += 1
@@ -105,7 +105,7 @@ def terminal(breaksignal, command_info, program_strings):
 
             if unknown_counter == len(command_info):
                 print("\nUnknown command, please try again")
-        except:
+        except Exception:
             print("\nQuitting...")
             break
 
