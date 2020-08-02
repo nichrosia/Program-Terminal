@@ -7,7 +7,7 @@ print("Terminal for programs \n")
 
 
 def generate_program_info():
-    query = [
+    exclude_list = [
         ".git",
         ".idea",
         "__pycache__",
@@ -18,8 +18,7 @@ def generate_program_info():
     folder_names = next(walk('.'))[1]
     print(folder_names)
 
-    for item in query:
-        folder_names.remove(item)
+    folder_names = [folder_name for folder_name in folder_names if folder_name not in exclude_list]
 
     if folder_names:
         for folder in folder_names:
