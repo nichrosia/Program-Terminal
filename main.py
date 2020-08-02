@@ -131,6 +131,7 @@ def main(_program_info):
         f"Current modules: {len(_program_info)}\n\n"
         "Programs:\n"
     )
+    if len(program_strings) == 0:
         print('None')
     else:
         for program_string in program_strings:
