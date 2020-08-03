@@ -1,32 +1,17 @@
 import importlib
 import importlib.util
 from os import system, name, walk
+from pathlib import Path
 from time import sleep
 
 print("Terminal for programs \n")
 
 
 def generateprogram_info():
-    exclude_list = [
-        ".git",
-        ".idea",
-        "__pycache__",
-    ]
-
-    program_info = {}
-
-    folder_names = next(walk('.'))[1]
-    print(folder_names)
-
-    folder_names = [folder_name for folder_name in folder_names if folder_name not in exclude_list]
-
-    if folder_names:
-        for folder in folder_names:
-            for program in next(walk(f"./{folder}"))[2]:
-                if 'main.py' in program:
-                    program_info[f"./{folder}/{program}"] = folder.replace('-', ' ').replace('_', ' ')
-
-    print(program_info)
+    program_info = {
+        str(path): path.parent.name.replace('_', ' ').replace('-', ' ')
+        for path in Path('.').rglob('*/main.py')
+    }
     return program_info
 
 
