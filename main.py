@@ -1,40 +1,24 @@
 import importlib
 import importlib.util
 from os import system, name, walk
+from pathlib import Path
 from time import sleep
 
 print("Terminal for programs \n")
 
 
-def generate_program_info():
-    query = [
-        ".git",
-        ".idea",
-        "__pycache__",
-    ]
-
-    _program_info = {}
-
-    folder_names = next(walk('.'))[1]
-    print(folder_names)
-
-    for item in query:
-        folder_names.remove(item)
-
-    if folder_names:
-        for folder in folder_names:
-            for program in next(walk(f"./{folder}"))[2]:
-                if 'main.py' in program:
-                    _program_info[f"./{folder}/{program}"] = folder.replace('-', ' ').replace('_', ' ')
-
-    print(_program_info)
-    return _program_info
+def generateprogram_info():
+    program_info = {
+        str(path): path.parent.name.replace('_', ' ').replace('-', ' ')
+        for path in Path('.').rglob('*/main.py')
+    }
+    return program_info
 
 
-def generate_modules(_program_info):
+def generate_modules(program_info):
     _modules = {}
 
-    for item in _program_info:
+    for item in program_info:
         name = program_info[item]
 
         spec = importlib.util.spec_from_file_location("module.name", item)
@@ -94,7 +78,7 @@ def terminal(breaksignal, command_info, program_strings):
                 if _input_ == command:
                     try:
                         program()
-                    except:
+                    except Exception:
                         print("\nAn error occurred within the program")
                 else:
                     unknown_counter += 1
@@ -106,31 +90,33 @@ def terminal(breaksignal, command_info, program_strings):
 
             if unknown_counter == len(command_info):
                 print("\nUnknown command, please try again")
-        except:
+        except Exception:
             print("\nQuitting...")
             break
 
 
-program_info = generate_program_info()
-modules = generate_modules(program_info)
-terminal_params = generate_terminal_parameters(modules)
+def main():
+    program_info = generateprogram_info()
+    print(program_info)
+    modules = generate_modules(program_info)
+    terminal_params = generate_terminal_parameters(modules)
 
-
-def main(_program_info):
     program_strings = {}
 
-    if len(_program_info) > 0:
-        for item in _program_info:
-            item_info = _program_info[item]
+    if len(program_info) > 0:
+        for item in program_info:
+            item_info = program_info[item]
             item_info = item_info.replace('_', ' ')
-            program_strings[item] = f"""  Program Name: [{item}], 
-    run command: [{item_info}]
-"""
+            program_strings[item] = (
+                f"  Program Name: [{item}], \n"
+                f"    run command: [{item_info}]\n"
+            )
 
-    print(f"""Current modules: {len(_program_info)}
-
-Programs:""")
-    if program_strings == {}:
+    print(
+        f"Current modules: {len(program_info)}\n\n"
+        "Programs:\n"
+    )
+    if len(program_strings) == 0:
         print('None')
     else:
         for program_string in program_strings:
@@ -140,4 +126,4 @@ Programs:""")
 
 
 if __name__ == '__main__':
-    main(program_info)
+    main()
